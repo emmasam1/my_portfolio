@@ -1,46 +1,51 @@
 // src/pages/Home.jsx
 
 import React, { useMemo, useState } from "react";
-import { Button, Card, Form, Input, Drawer, message as antdMessage } from "antd";
+import { Button, Card, Form, Input, Drawer, message as antdMessage, Modal } from "antd";
+import { FaLinkedinIn, FaWhatsapp, FaGithub, FaPhone } from "react-icons/fa6";
+import { MdOutlineMail } from "react-icons/md";
 import { motion } from "framer-motion";
-import {
-  Github,
-  Linkedin,
-  Mail,
-  MessageCircle,
-  ExternalLink,
-  Phone,
-} from "lucide-react";
+
 import photo from "../assets/photo.jpg";
+import cutlist from "../assets/cutlist.png";
+import withread from "../assets/withread.jpeg";
+import pos from "../assets/pos.png";
 
 const projects = [
   {
-    title: "Community Hub",
+    title: "Cutlist",
     description:
-      "Next.js + AntD community platform with posts, reactions, and real-time chat.",
-    tags: ["Next.js", "AntD", "Socket.io", "Tailwind"],
-    image:
-      "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=1200",
-    link: "https://example.com/community",
-    repo: "https://github.com/you/community-hub",
+      "Rect vite + AntD community platform with posts, tailwind for frontend and Node.js for the backend.",
+    tags: ["React.js", "AntD", "Tailwind", "Node.js", "Express"],
+    image: cutlist,
+    link: "https://cutlist.vercel.app/admin-login",
+    repo: "https://github.com/emmasam1/cutlist.git",
+    login: { user: "8055120900", password: "1234" },
   },
   {
-    title: "E-Commerce Dashboard",
+    title: "Withread",
     description:
-      "React + JSON Server CRUD with modals, charts, and role-based access.",
-    tags: ["React", "AntD", "Recharts", "Framer Motion"],
-    image:
-      "https://images.unsplash.com/photo-1557825835-70d97c4aa1c1?q=80&w=1200",
-    link: "https://example.com/dashboard",
-    repo: "https://github.com/you/ecommerce-dashboard",
+      "Next.js + AntD community platform with posts, tailwind for frontend and Node.js for the backend.",
+    tags: ["Next.js", "AntD", "Tailwind", "Framer Motion", "Node.js", "Express" ],
+    image: withread,
+    link: "https://withread.vercel.app/dashboard",
+    repo: "https://github.com/emmasam1/withread.git",
   },
   {
-    title: "Portfolio Website",
-    description: "Personal portfolio built with React, Tailwind & Framer Motion.",
+    title: "Point of Sale",
+    description: "React, Tailwind, Antd for frontend and Node.js for the backend POS system with product management, sales tracking, and analytics.",
     tags: ["React", "Tailwind", "Framer Motion"],
-    image: "https://source.unsplash.com/1200x800/?portfolio,website",
+    image: pos,
     link: "https://example.com/portfolio",
     repo: "https://github.com/you/portfolio",
+    login: { user: "finderic84@gmail.com (cashier) and oyivosam12@gmail.com (admin)", password: "123456@" },
+    // Admin login 
+// oyivosam12@gmail.com
+// 123456@
+
+// Cashier login 
+// finderic84@gmail.com 
+// 123456@
   },
 ];
 
@@ -64,6 +69,15 @@ export default function Home() {
 
   const [open, setOpen] = useState(false);
   const [form] = Form.useForm();
+
+  // For project modal
+  const [projectOpen, setProjectOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  const showProject = (project) => {
+    setSelectedProject(project);
+    setProjectOpen(true);
+  };
 
   const onContactSubmit = () => {
     form.validateFields().then((values) => {
@@ -139,22 +153,22 @@ export default function Home() {
         >
           <SocialBtn
             href={`mailto:${yourEmail}`}
-            icon={<Mail />}
+            icon={<MdOutlineMail size={20}/>}
             bg="bg-emerald-500"
           />
           <SocialBtn
-            href="https://github.com/you"
-            icon={<Github />}
+            href="https://github.com/emmasam1"
+            icon={<FaGithub size={20}/>}
             bg="bg-gray-700"
           />
           <SocialBtn
-            href="https://linkedin.com/in/you"
-            icon={<Linkedin />}
+            href="https://www.linkedin.com/in/emmanuel-akinbolasere-91a82035b/"
+            icon={<FaLinkedinIn size={20}/>}
             bg="bg-blue-600"
           />
           <SocialBtn
             href={whatsappHref}
-            icon={<MessageCircle />}
+            icon={<FaWhatsapp size={20}/>}
             bg="bg-green-600"
           />
         </motion.div>
@@ -168,7 +182,7 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          About Me 
+          About Me
         </motion.h2>
         <motion.p
           className="text-gray-400 leading-relaxed text-lg"
@@ -196,7 +210,7 @@ export default function Home() {
               whileHover={{ scale: 1.03 }}
             >
               <Card
-                className="bg-gray-800 border-gray-700 rounded-2xl overflow-hidden shadow-lg"
+                className="bg-gray-800 border-gray-700 rounded-2xl overflow-hidden shadow-lg cursor-pointer"
                 cover={
                   <img
                     src={p.image}
@@ -204,22 +218,62 @@ export default function Home() {
                     className="h-48 w-full object-cover"
                   />
                 }
+                onClick={() => showProject(p)}
               >
                 <h3 className="text-xl font-semibold text-white">{p.title}</h3>
                 <p className="text-gray-400">{p.description}</p>
-                <div className="mt-3 flex gap-3">
-                  <a href={p.link} target="_blank" rel="noreferrer">
-                    <ExternalLink className="text-emerald-400 hover:text-emerald-300" />
-                  </a>
-                  <a href={p.repo} target="_blank" rel="noreferrer">
-                    <Github className="text-gray-400 hover:text-white" />
-                  </a>
-                </div>
               </Card>
             </motion.div>
           ))}
         </div>
       </section>
+
+      {/* Project Modal */}
+      <Modal
+        open={projectOpen}
+        title={selectedProject?.title}
+        onCancel={() => setProjectOpen(false)}
+        footer={null}
+        centered
+      >
+        {selectedProject && (
+          <div className="space-y-4">
+            <p>{selectedProject.description}</p>
+
+            <div>
+              <h4 className="font-semibold">Tech Stack:</h4>
+              <ul className="list-disc ml-5 text-gray-700">
+                {selectedProject.tags.map((tech, idx) => (
+                  <li key={idx}>{tech}</li>
+                ))}
+              </ul>
+            </div>
+
+            {selectedProject.login && (
+              <div>
+                <h4 className="font-semibold">Demo Login:</h4>
+                <p>
+                  <strong>User:</strong> {selectedProject.login.user} <br />
+                  <strong>Pass:</strong> {selectedProject.login.password}
+                </p>
+              </div>
+            )}
+
+            <div className="flex gap-4">
+              <Button type="primary">
+                <a href={selectedProject.link} target="_blank" rel="noreferrer">
+                  Live Demo
+                </a>
+              </Button>
+              <Button>
+                <a href={selectedProject.repo} target="_blank" rel="noreferrer">
+                  GitHub
+                </a>
+              </Button>
+            </div>
+          </div>
+        )}
+      </Modal>
 
       {/* CONTACT */}
       <section id="contact" className="bg-gray-800 py-20 px-4">
@@ -235,7 +289,7 @@ export default function Home() {
             <Button href={whatsappHref} target="_blank">
               WhatsApp
             </Button>
-            <Button href={`tel:${yourPhone}`} icon={<Phone />}>
+            <Button href={`tel:${yourPhone}`} icon={<FaPhone  />}>
               Call Me
             </Button>
           </div>
@@ -286,7 +340,7 @@ function SocialBtn({ href, icon, bg }) {
       href={href}
       target="_blank"
       rel="noreferrer"
-      className={`${bg} p-3 rounded-full hover:scale-110 transform transition`}
+      className={`${bg} p-3 rounded-full flex justify-center items-center w-12 h-12 hover:scale-110 transform transition`}
     >
       {icon}
     </a>
