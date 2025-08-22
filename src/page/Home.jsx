@@ -1,10 +1,19 @@
 // src/pages/Home.jsx
 
 import React, { useMemo, useState } from "react";
-import { Button, Card, Form, Input, Drawer, message as antdMessage, Modal } from "antd";
+import {
+  Button,
+  Card,
+  Form,
+  Input,
+  Drawer,
+  message as antdMessage,
+  Modal,
+} from "antd";
 import { FaLinkedinIn, FaWhatsapp, FaGithub, FaPhone } from "react-icons/fa6";
 import { MdOutlineMail } from "react-icons/md";
 import { motion } from "framer-motion";
+import emailjs from "emailjs-com";
 
 import photo from "../assets/photo.jpg";
 import cutlist from "../assets/cutlist.png";
@@ -15,7 +24,7 @@ const projects = [
   {
     title: "Cutlist",
     description:
-      "Rect vite + AntD community platform with posts, tailwind for frontend and Node.js for the backend.",
+      "React + AntD community platform with posts, Tailwind for frontend and Node.js backend.",
     tags: ["React.js", "AntD", "Tailwind", "Node.js", "Express"],
     image: cutlist,
     link: "https://cutlist.vercel.app/admin-login",
@@ -25,27 +34,24 @@ const projects = [
   {
     title: "Withread",
     description:
-      "Next.js + AntD community platform with posts, tailwind for frontend and Node.js for the backend.",
-    tags: ["Next.js", "AntD", "Tailwind", "Framer Motion", "Node.js", "Express" ],
+      "Next.js + AntD platform with posts, Tailwind for frontend and Node.js backend.",
+    tags: ["Next.js", "AntD", "Tailwind", "Framer Motion", "Node.js", "Express"],
     image: withread,
     link: "https://withread.vercel.app/dashboard",
     repo: "https://github.com/emmasam1/withread.git",
   },
   {
     title: "Point of Sale",
-    description: "React, Tailwind, Antd for frontend and Node.js for the backend POS system with product management, sales tracking, and analytics.",
+    description:
+      "React, Tailwind, AntD frontend and Node.js backend POS system with product management, sales tracking, and analytics.",
     tags: ["React", "Tailwind", "Framer Motion"],
     image: pos,
     link: "https://example.com/portfolio",
     repo: "https://github.com/you/portfolio",
-    login: { user: "finderic84@gmail.com (cashier) and oyivosam12@gmail.com (admin)", password: "123456@" },
-    // Admin login 
-// oyivosam12@gmail.com
-// 123456@
-
-// Cashier login 
-// finderic84@gmail.com 
-// 123456@
+    login: {
+      user: "finderic84@gmail.com (cashier) and oyivosam12@gmail.com (admin)",
+      password: "123456@",
+    },
   },
 ];
 
@@ -73,25 +79,75 @@ export default function Home() {
   // For project modal
   const [projectOpen, setProjectOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const showProject = (project) => {
     setSelectedProject(project);
     setProjectOpen(true);
   };
 
+  // 🔥 EmailJS Contact Submit
+  // const onContactSubmit = () => {
+  //   setLoading(true);
+  //   form.validateFields().then((values) => {
+  //     emailjs
+  //       .send(
+  //         "service_gozwykh", // ✅ your EmailJS service ID
+  //         "template_g69q20z", // ✅ your EmailJS template ID
+  //         {
+  //           from_name: values.name,
+  //           reply_to: values.email,
+  //           message: values.message,
+  //         },
+  //         "EsTzN-dWRv49434Ne" // ✅ your EmailJS public key
+  //       )
+  //       .then(
+  //         () => {
+  //           antdMessage.success("Message sent successfully ✅");
+  //           setLoading(false);
+  //           setOpen(false);
+  //           form.resetFields();
+  //         },
+  //         (error) => {
+  //           console.error("EmailJS Error:", error);
+  //           setLoading(false);
+  //           antdMessage.error("Failed to send message ❌");
+  //         }
+  //       );
+  //   });
+  // };
+
   const onContactSubmit = () => {
-    form.validateFields().then((values) => {
-      const subject = encodeURIComponent(
-        `Portfolio inquiry from ${values.name}`
+  setLoading(true);
+  form.validateFields().then((values) => {
+    emailjs
+      .send(
+        "service_gozwykh", // ✅ your EmailJS service ID
+        "template_g69q20z", // ✅ your EmailJS template ID
+        {
+          from_name: values.name,
+          reply_to: values.email,
+          message: values.message,
+          to_email: "findm4@gmail.com", // ✅ your email (recipient)
+        },
+        "EsTzN-dWRv49434Ne" // ✅ your EmailJS public key
+      )
+      .then(
+        () => {
+          antdMessage.success("Message sent successfully ✅");
+          setLoading(false);
+          setOpen(false);
+          form.resetFields();
+        },
+        (error) => {
+          console.error("EmailJS Error:", error);
+          setLoading(false);
+          antdMessage.error("Failed to send message ❌");
+        }
       );
-      const body = encodeURIComponent(
-        `Hi ${yourName},\n\n${values.message}\n\nFrom: ${values.name}\nEmail: ${values.email}`
-      );
-      window.location.href = `mailto:${yourEmail}?subject=${subject}&body=${body}`;
-      setOpen(false);
-      antdMessage.success("Opening your email client…");
-    });
-  };
+  });
+};
+
 
   return (
     <div className="bg-gray-900 text-gray-100 font-sans scroll-smooth">
@@ -153,22 +209,22 @@ export default function Home() {
         >
           <SocialBtn
             href={`mailto:${yourEmail}`}
-            icon={<MdOutlineMail size={20}/>}
+            icon={<MdOutlineMail size={20} />}
             bg="bg-emerald-500"
           />
           <SocialBtn
             href="https://github.com/emmasam1"
-            icon={<FaGithub size={20}/>}
+            icon={<FaGithub size={20} />}
             bg="bg-gray-700"
           />
           <SocialBtn
             href="https://www.linkedin.com/in/emmanuel-akinbolasere-91a82035b/"
-            icon={<FaLinkedinIn size={20}/>}
+            icon={<FaLinkedinIn size={20} />}
             bg="bg-blue-600"
           />
           <SocialBtn
             href={whatsappHref}
-            icon={<FaWhatsapp size={20}/>}
+            icon={<FaWhatsapp size={20} />}
             bg="bg-green-600"
           />
         </motion.div>
@@ -289,7 +345,7 @@ export default function Home() {
             <Button href={whatsappHref} target="_blank">
               WhatsApp
             </Button>
-            <Button href={`tel:${yourPhone}`} icon={<FaPhone  />}>
+            <Button href={`tel:${yourPhone}`} icon={<FaPhone />}>
               Call Me
             </Button>
           </div>
@@ -304,11 +360,7 @@ export default function Home() {
       {/* Drawer for quick contact */}
       <Drawer title="Message Me" open={open} onClose={() => setOpen(false)}>
         <Form form={form} layout="vertical">
-          <Form.Item
-            name="name"
-            label="Your name"
-            rules={[{ required: true }]}
-          >
+          <Form.Item name="name" label="Your name" rules={[{ required: true }]}>
             <Input placeholder="Jane Doe" />
           </Form.Item>
           <Form.Item
@@ -325,7 +377,7 @@ export default function Home() {
           >
             <Input.TextArea rows={4} placeholder="I’d like help with…" />
           </Form.Item>
-          <Button type="primary" onClick={onContactSubmit}>
+          <Button type="primary" loading={loading} onClick={onContactSubmit}>
             Send Email
           </Button>
         </Form>
