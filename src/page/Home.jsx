@@ -24,8 +24,8 @@ const projects = [
   {
     title: "Cutlist",
     description:
-      "React + AntD community platform with posts, Tailwind for frontend and Node.js backend.",
-    tags: ["React.js", "AntD", "Tailwind", "Node.js", "Express"],
+      "React + AntD community platform with posts, Tailwind for frontend and Node.js backend. Currently in testing phase.",
+    tags: ["React.js", "AntD", "Tailwind", "Node.js", "Express", "MongoDB"],
     image: cutlist,
     link: "https://cutlist.vercel.app/admin-login",
     repo: "https://github.com/emmasam1/cutlist.git",
@@ -34,8 +34,8 @@ const projects = [
   {
     title: "Withread",
     description:
-      "Next.js + AntD platform with posts, Tailwind for frontend and Node.js backend.",
-    tags: ["Next.js", "AntD", "Tailwind", "Framer Motion", "Node.js", "Express"],
+      "Next.js + AntD platform with posts, Tailwind for frontend and Node.js backend. A social media app",
+    tags: ["Next.js", "AntD", "Tailwind", "Framer Motion", "Node.js", "Express", "MongoDB"],
     image: withread,
     link: "https://withread.vercel.app/dashboard",
     repo: "https://github.com/emmasam1/withread.git",
@@ -44,7 +44,7 @@ const projects = [
     title: "Point of Sale",
     description:
       "React, Tailwind, AntD frontend and Node.js backend POS system with product management, sales tracking, and analytics.",
-    tags: ["React", "Tailwind", "Framer Motion"],
+    tags: ["React", "Tailwind", "AntD", "Node.js", "Express", "MongoDB"],
     image: pos,
     link: "https://example.com/portfolio",
     repo: "https://github.com/you/portfolio",
