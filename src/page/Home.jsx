@@ -19,6 +19,7 @@ import photo from "../assets/photo.jpg";
 import cutlist from "../assets/cutlist.png";
 import withread from "../assets/withread.jpeg";
 import pos from "../assets/pos.png";
+import smartSchola from "../assets/smartSchola.png";
 
 const projects = [
   {
@@ -52,6 +53,20 @@ const projects = [
       user: "finderic84@gmail.com (cashier) and oyivosam12@gmail.com (admin)",
       password: "123456@",
     },
+  },
+ {
+    title: "Smart Schola",
+    description:
+      "A comprehensive Enterprise Resource Planning (ERP) solution for educational institutions. This full-stack platform streamlines administrative workflows, featuring role-based access control for admins and staff, automated financial tracking, and real-time student data management.",
+    tags: ["React", "Tailwind", "AntD", "Node.js", "Express", "MongoDB"],
+    image: smartSchola,
+    link: "https://paris-sms.vercel.app/",
+    // repo: "https://github.com/you/portfolio",
+    note: "Full live demo available upon request.",
+    // login: {
+    //   user: "Full live demo available upon request.",
+    //   password: "123456@",
+    // },
   },
 ];
 
@@ -312,6 +327,13 @@ export default function Home() {
                   <strong>User:</strong> {selectedProject.login.user} <br />
                   <strong>Pass:</strong> {selectedProject.login.password}
                 </p>
+              </div>
+            )}
+
+            {selectedProject.note && (
+              <div>
+                <h4 className="font-semibold">Note:</h4>
+                <p>{selectedProject.note}</p>
               </div>
             )}
 
