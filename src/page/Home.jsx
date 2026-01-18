@@ -20,6 +20,7 @@ import cutlist from "../assets/cutlist.png";
 import withread from "../assets/withread.jpeg";
 import pos from "../assets/pos.png";
 import smartSchola from "../assets/smartSchola.png";
+import ilefund from "../assets/ilefund.png";
 
 const projects = [
   {
@@ -36,7 +37,15 @@ const projects = [
     title: "Withread",
     description:
       "Next.js + AntD platform with posts, Tailwind for frontend and Node.js backend. A social media app",
-    tags: ["Next.js", "AntD", "Tailwind", "Framer Motion", "Node.js", "Express", "MongoDB"],
+    tags: [
+      "Next.js",
+      "AntD",
+      "Tailwind",
+      "Framer Motion",
+      "Node.js",
+      "Express",
+      "MongoDB",
+    ],
     image: withread,
     link: "https://withread.vercel.app/dashboard",
     repo: "https://github.com/emmasam1/withread.git",
@@ -54,7 +63,7 @@ const projects = [
       password: "123456@",
     },
   },
- {
+  {
     title: "Smart Schola",
     description:
       "A comprehensive Enterprise Resource Planning (ERP) solution for educational institutions. This full-stack platform streamlines administrative workflows, featuring role-based access control for admins and staff, automated financial tracking, and real-time student data management.",
@@ -67,6 +76,16 @@ const projects = [
     //   user: "Full live demo available upon request.",
     //   password: "123456@",
     // },
+  },
+  {
+    title: "Ilefund",
+    description:
+      "A sophisticated PropTech and FinTech platform designed to democratize real estate investment. The application enables users to save towards property ownership, purchase land or houses, and invest in high-growth real estate portfolios through fractionalized assets and automated savings plans.",
+    tags: ["React", "Tailwind", "Node.js", "Express", "MongoDB", "FinTech"],
+    image: ilefund, // Replace with your image variable
+    link: "https://ilefund.com/",
+    // repo: "https://github.com/you/ilefund-repo", // Link to your repo if public
+    note: "Production-ready application. A private staging demo with test credentials can be provided upon request for technical evaluation.",
   },
 ];
 
@@ -133,36 +152,35 @@ export default function Home() {
   // };
 
   const onContactSubmit = () => {
-  setLoading(true);
-  form.validateFields().then((values) => {
-    emailjs
-      .send(
-        "service_gozwykh", // ✅ your EmailJS service ID
-        "template_g69q20z", // ✅ your EmailJS template ID
-        {
-          from_name: values.name,
-          reply_to: values.email,
-          message: values.message,
-          to_email: "findm4@gmail.com", // ✅ your email (recipient)
-        },
-        "EsTzN-dWRv49434Ne" // ✅ your EmailJS public key
-      )
-      .then(
-        () => {
-          antdMessage.success("Message sent successfully ✅");
-          setLoading(false);
-          setOpen(false);
-          form.resetFields();
-        },
-        (error) => {
-          console.error("EmailJS Error:", error);
-          setLoading(false);
-          antdMessage.error("Failed to send message ❌");
-        }
-      );
-  });
-};
-
+    setLoading(true);
+    form.validateFields().then((values) => {
+      emailjs
+        .send(
+          "service_gozwykh", // ✅ your EmailJS service ID
+          "template_g69q20z", // ✅ your EmailJS template ID
+          {
+            from_name: values.name,
+            reply_to: values.email,
+            message: values.message,
+            to_email: "findm4@gmail.com", // ✅ your email (recipient)
+          },
+          "EsTzN-dWRv49434Ne" // ✅ your EmailJS public key
+        )
+        .then(
+          () => {
+            antdMessage.success("Message sent successfully ✅");
+            setLoading(false);
+            setOpen(false);
+            form.resetFields();
+          },
+          (error) => {
+            console.error("EmailJS Error:", error);
+            setLoading(false);
+            antdMessage.error("Failed to send message ❌");
+          }
+        );
+    });
+  };
 
   return (
     <div className="bg-gray-900 text-gray-100 font-sans scroll-smooth">
@@ -292,7 +310,11 @@ export default function Home() {
                 onClick={() => showProject(p)}
               >
                 <h3 className="text-xl font-semibold text-white">{p.title}</h3>
-                <p className="text-gray-400">{p.description}</p>
+                <p className="text-gray-400">
+                  {p.description?.length > 150
+                    ? `${p.description.slice(0, 150)}...`
+                    : p.description}
+                </p>
               </Card>
             </motion.div>
           ))}
