@@ -21,7 +21,8 @@ import withread from "../assets/withread.jpeg";
 import pos from "../assets/pos.png";
 import smartSchola from "../assets/smartSchola.png";
 import ilefund from "../assets/ilefund.png";
-
+import fasl from "../assets/fasl.png";
+import veekites from "../assets/veekites.png";
 const projects = [
   {
     title: "Cutlist",
@@ -70,21 +71,33 @@ const projects = [
     tags: ["React", "Tailwind", "AntD", "Node.js", "Express", "MongoDB"],
     image: smartSchola,
     link: "https://paris-sms.vercel.app/",
-    // repo: "https://github.com/you/portfolio",
     note: "Full live demo available upon request.",
-    // login: {
-    //   user: "Full live demo available upon request.",
-    //   password: "123456@",
-    // },
   },
   {
     title: "Ilefund",
     description:
       "A sophisticated PropTech and FinTech platform designed to democratize real estate investment. The application enables users to save towards property ownership, purchase land or houses, and invest in high-growth real estate portfolios through fractionalized assets and automated savings plans.",
     tags: ["React", "Tailwind", "Node.js", "Express", "MongoDB", "FinTech"],
-    image: ilefund, // Replace with your image variable
+    image: ilefund,
     link: "https://ilefund.com/",
-    // repo: "https://github.com/you/ilefund-repo", // Link to your repo if public
+    note: "Production-ready application. A private staging demo with test credentials can be provided upon request for technical evaluation.",
+  },
+  {
+    title: "Veekites",
+    description:
+      "A professional construction and architectural services website for Construction Six Theta, showcasing building-related services and project offerings. The homepage features premium construction solutions tailored to individual client requirements, with sections highlighting the company’s expertise, project gallery, and team profiles. The site presents core capabilities in architecture, construction planning, and design build services, and includes an overview of key team members and contact details for customer inquiries.",
+    tags: ["React", "Tailwind", "Node.js", "Express", "MongoDB", "FinTech"],
+    image: veekites,
+    link: "https://www.veekites.com/",
+    note: "Production-ready application. A private staging demo with test credentials can be provided upon request for technical evaluation.",
+  },
+  {
+    title: "FASL",
+    description:
+      "A professional construction and architectural services website for Construction Six Theta, showcasing building-related services and project offerings. The homepage features premium construction solutions tailored to individual client requirements, with sections highlighting the company’s expertise, project gallery, and team profiles. The site presents core capabilities in architecture, construction planning, and design build services, and includes an overview of key team members and contact details for customer inquiries.",
+    tags: ["React", "Tailwind", "Node.js", "Express", "MongoDB", "FinTech"],
+    image: fasl,
+    link: "https://construction-six-theta.vercel.app/",
     note: "Production-ready application. A private staging demo with test credentials can be provided upon request for technical evaluation.",
   },
 ];
@@ -97,12 +110,12 @@ export default function Home() {
 
   const whatsappNumberOnly = useMemo(
     () => yourPhone.replace(/\D/g, ""),
-    [yourPhone]
+    [yourPhone],
   );
 
   const whatsappHref = useMemo(() => {
     const txt = encodeURIComponent(
-      "Hi, I found your portfolio and would love to chat!"
+      "Hi, I found your portfolio and would love to chat!",
     );
     return `https://wa.me/234${whatsappNumberOnly}?text=${txt}`;
   }, [whatsappNumberOnly]);
@@ -164,7 +177,7 @@ export default function Home() {
             message: values.message,
             to_email: "findm4@gmail.com", // ✅ your email (recipient)
           },
-          "EsTzN-dWRv49434Ne" // ✅ your EmailJS public key
+          "EsTzN-dWRv49434Ne", // ✅ your EmailJS public key
         )
         .then(
           () => {
@@ -177,7 +190,7 @@ export default function Home() {
             console.error("EmailJS Error:", error);
             setLoading(false);
             antdMessage.error("Failed to send message ❌");
-          }
+          },
         );
     });
   };
@@ -210,7 +223,7 @@ export default function Home() {
         <motion.img
           src={photo}
           alt="Profile"
-          className="w-40 h-40 rounded-full border-4 border-emerald-500 shadow-2xl object-cover"
+          className="w-60 h-60! rounded-full border-4 border-emerald-500 shadow-2xl object-cover"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: [-10, 10, -10], opacity: 1 }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
