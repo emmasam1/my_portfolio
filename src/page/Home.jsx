@@ -57,7 +57,7 @@ const projects = [
       "React, Tailwind, AntD frontend and Node.js backend POS system with product management, sales tracking, and analytics.",
     tags: ["React", "Tailwind", "AntD", "Node.js", "Express", "MongoDB"],
     image: pos,
-    link: "https://example.com/portfolio",
+    link: "https://point-of-sales-liart.vercel.app/",
     repo: "https://github.com/you/portfolio",
     login: {
       user: "finderic84@gmail.com (cashier) and oyivosam12@gmail.com (admin)",
